@@ -1,0 +1,11 @@
+[project]
+name = "otel-getting-started"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.136.1",
+    "structlog>=25.5.0",
+    "uvicorn>=0.47.0",
+]
