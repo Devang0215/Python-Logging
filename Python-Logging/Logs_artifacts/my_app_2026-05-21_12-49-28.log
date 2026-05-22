@@ -1,0 +1,3 @@
+2026-05-21 12:49:28,984 - INFO - my_app.py - 7 - Started
+2026-05-21 12:49:28,985 - INFO - my_lib.py - 5 - I am doing something important.
+2026-05-21 12:49:28,985 - INFO - my_app.py - 9 - Finished
