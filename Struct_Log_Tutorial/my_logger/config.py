@@ -1,5 +1,5 @@
-import logging
 import os
+import logging
 
 from logging.handlers import (
     RotatingFileHandler
@@ -29,26 +29,56 @@ def configure_logger():
         exist_ok=True
     )
 
+    # -------------------------
+    # FILE HANDLER
+    # -------------------------
+
     file_handler = RotatingFileHandler(
 
-        "logs/app.log",
+        filename="logs/app.log",
 
         maxBytes=10_000_000,
 
         backupCount=5
     )
 
+    # -------------------------
+    # CONSOLE HANDLER
+    # -------------------------
+
+    console_handler = logging.StreamHandler()
+
+    # -------------------------
+    # BASIC CONFIG
+    # -------------------------
+
     logging.basicConfig(
 
         handlers=[
-            logging.StreamHandler(),
+            console_handler,
             file_handler
         ],
 
-        format="%(message)s",
+        level=LOG_LEVEL,
 
-        level=LOG_LEVEL
+        format="%(message)s"
     )
+
+    # -------------------------
+    # DISABLE EXTRA LOGS
+    # -------------------------
+
+    logging.getLogger(
+        "uvicorn.access"
+    ).disabled = True
+
+    logging.getLogger(
+        "opentelemetry"
+    ).setLevel(logging.WARNING)
+
+    # -------------------------
+    # RENDERER
+    # -------------------------
 
     renderer = (
 
@@ -60,6 +90,10 @@ def configure_logger():
 
         else structlog.dev.ConsoleRenderer()
     )
+
+    # -------------------------
+    # STRUCTLOG CONFIG
+    # -------------------------
 
     structlog.configure(
 
@@ -88,7 +122,10 @@ def configure_logger():
             renderer
         ],
 
-        logger_factory=structlog.stdlib.PrintLoggerFactory(),
+        # IMPORTANT FIX
+        logger_factory=structlog.stdlib.LoggerFactory(),
+
+        wrapper_class=structlog.stdlib.BoundLogger,
 
         cache_logger_on_first_use=True
     )
