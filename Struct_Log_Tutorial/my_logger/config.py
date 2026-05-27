@@ -52,7 +52,9 @@ def configure_logger():
 
     renderer = (
 
-        structlog.processors.JSONRenderer()
+        structlog.processors.JSONRenderer(
+            indent=4
+        )
 
         if JSON_LOGS
 
