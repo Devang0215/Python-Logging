@@ -88,7 +88,7 @@ def configure_logger():
             renderer
         ],
 
-        logger_factory=structlog.PrintLoggerFactory(),
+        logger_factory=structlog.stdlib.PrintLoggerFactory(),
 
         cache_logger_on_first_use=True
     )
