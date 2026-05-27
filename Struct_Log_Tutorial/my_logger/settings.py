@@ -1,5 +1,10 @@
 import os
 
+ENVIRONMENT = os.getenv(
+    "ENVIRONMENT",
+    "development"
+)
+
 LOG_LEVEL = os.getenv(
     "LOG_LEVEL",
     "INFO"
@@ -7,5 +12,10 @@ LOG_LEVEL = os.getenv(
 
 JSON_LOGS = os.getenv(
     "JSON_LOGS",
-    "False"
+    "True"
 ).lower() == "true"
+
+SERVICE_NAME = os.getenv(
+    "SERVICE_NAME",
+    "app-service"
+)

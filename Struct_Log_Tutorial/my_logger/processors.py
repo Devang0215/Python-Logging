@@ -1,14 +1,8 @@
-# For creating Custom Processors
+import socket
 
-import os
-
-def add_app_metadata(logger,method_name,event_dict):
-
-    event_dict["environment"] = os.getenv("ENVIRONMENT", "development")
-
-    return event_dict
-
-
+from opentelemetry.trace import (
+    get_current_span
+)
 
 SENSITIVE_KEYS = {
     "password",
@@ -16,6 +10,7 @@ SENSITIVE_KEYS = {
     "secret",
     "api_key"
 }
+
 
 def mask_sensitive_data(
     logger,
@@ -32,10 +27,18 @@ def mask_sensitive_data(
     return event_dict
 
 
+def add_app_metadata(
+    logger,
+    method_name,
+    event_dict
+):
 
-from opentelemetry.trace import (
-    get_current_span
-)
+    event_dict["hostname"] = (
+        socket.gethostname()
+    )
+
+    return event_dict
+
 
 def add_trace_context(
     logger,

@@ -9,6 +9,7 @@ from opentelemetry.sdk.trace.export import (
     ConsoleSpanExporter
 )
 
+
 def setup_tracing():
 
     trace.set_tracer_provider(

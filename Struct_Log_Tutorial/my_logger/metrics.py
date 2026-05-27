@@ -4,41 +4,36 @@ from prometheus_client import (
     Gauge
 )
 
-
 REQUEST_COUNT = Counter(
 
     "http_requests_total",
 
-    "Total HTTP requests",
+    "Total HTTP Requests",
 
     ["method", "endpoint", "status"]
 )
-
 
 REQUEST_LATENCY = Histogram(
 
     "http_request_duration_seconds",
 
-    "HTTP request latency",
+    "Request Latency",
 
     ["method", "endpoint"]
 )
-
-
 
 ERROR_COUNT = Counter(
 
     "http_errors_total",
 
-    "Total HTTP errors",
+    "Total Errors",
 
     ["method", "endpoint"]
 )
-
 
 ACTIVE_REQUESTS = Gauge(
 
     "active_requests",
 
-    "Currently active requests"
+    "Active Requests"
 )

@@ -1,44 +1,92 @@
 import logging
+import os
+
+from logging.handlers import (
+    RotatingFileHandler
+)
+
 import structlog
-from .processors import *
 
 from .settings import (
-    LOG_LEVEL,
-    JSON_LOGS
-)
-console_handler = logging.StreamHandler()
-
-file_handler = logging.FileHandler(
-    "app.log"
+    JSON_LOGS,
+    LOG_LEVEL
 )
 
+from .processors import (
 
-def configure_logger(json_logs=False,log_level="INFO"):
+    add_trace_context,
 
-    renderer = (structlog.processors.JSONRenderer(indent=4,sort_keys=True) if json_logs else structlog.dev.ConsoleRenderer())
+    add_app_metadata,
+
+    mask_sensitive_data
+)
+
+
+def configure_logger():
+
+    os.makedirs(
+        "logs",
+        exist_ok=True
+    )
+
+    file_handler = RotatingFileHandler(
+
+        "logs/app.log",
+
+        maxBytes=10_000_000,
+
+        backupCount=5
+    )
 
     logging.basicConfig(
-        handlers=[console_handler, file_handler],
+
+        handlers=[
+            logging.StreamHandler(),
+            file_handler
+        ],
+
         format="%(message)s",
-        level=log_level
+
+        level=LOG_LEVEL
+    )
+
+    renderer = (
+
+        structlog.processors.JSONRenderer()
+
+        if JSON_LOGS
+
+        else structlog.dev.ConsoleRenderer()
     )
 
     structlog.configure(
-        processors = [
+
+        processors=[
+
             structlog.contextvars.merge_contextvars,
-            add_app_metadata,
-            add_trace_context,
+
             mask_sensitive_data,
-            structlog.processors.TimeStamper(fmt="iso"),
+
+            add_trace_context,
+
+            add_app_metadata,
+
+            structlog.processors.TimeStamper(
+                fmt="iso"
+            ),
+
             structlog.processors.add_log_level,
+
             structlog.processors.StackInfoRenderer(),
+
             structlog.processors.format_exc_info,
+
             structlog.processors.UnicodeDecoder(),
 
             renderer
         ],
 
         logger_factory=structlog.PrintLoggerFactory(),
+
         cache_logger_on_first_use=True
     )
-

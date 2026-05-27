@@ -1,28 +1,12 @@
 import structlog
-def get_logger(service_name="app"):
 
-    logger = structlog.get_logger().bind(service=service_name)
+from .settings import (
+    SERVICE_NAME
+)
 
-    return logger
 
+def get_logger():
 
-class AppLogger:
-
-    def __init__(self, service):
-
-        self.logger = (
-            structlog.get_logger()
-            .bind(service=service)
-        )
-
-    def info(self, event, **kwargs):
-
-        self.logger.info(event, **kwargs)
-
-    def error(self, event, **kwargs):
-
-        self.logger.error(event, **kwargs)
-
-    def exception(self, event, **kwargs):
-
-        self.logger.exception(event, **kwargs)
+    return structlog.get_logger().bind(
+        service=SERVICE_NAME
+    )
