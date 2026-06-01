@@ -1,8 +1,12 @@
 from prometheus_client import (
     Counter,
     Histogram,
-    Gauge
+    Gauge,
+    generate_latest
 )
+from fastapi import APIRouter
+from fastapi.responses import Response
+
 
 REQUEST_COUNT = Counter(
 
@@ -37,3 +41,12 @@ ACTIVE_REQUESTS = Gauge(
 
     "Active Requests"
 )
+
+router = APIRouter()
+
+@router.get("/metrics")
+async def metrics():
+    return Response(
+        generate_latest(),
+        media_type="text/plain"
+    )

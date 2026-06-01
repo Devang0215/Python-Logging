@@ -13,3 +13,8 @@ from .telemetry import (
 from .middleware import (
     logging_middleware
 )
+
+from .metrics import router as metrics_router
+
+def setup_metrics(app):
+    app.include_router(metrics_router)
