@@ -29,9 +29,6 @@ def configure_logger():
         exist_ok=True
     )
 
-    # -------------------------
-    # FILE HANDLER
-    # -------------------------
 
     file_handler = RotatingFileHandler(
 
@@ -42,15 +39,8 @@ def configure_logger():
         backupCount=5
     )
 
-    # -------------------------
-    # CONSOLE HANDLER
-    # -------------------------
 
     console_handler = logging.StreamHandler()
-
-    # -------------------------
-    # BASIC CONFIG
-    # -------------------------
 
     logging.basicConfig(
 
@@ -64,9 +54,6 @@ def configure_logger():
         format="%(message)s"
     )
 
-    # -------------------------
-    # DISABLE EXTRA LOGS
-    # -------------------------
 
     logging.getLogger(
         "uvicorn.access"
@@ -76,9 +63,6 @@ def configure_logger():
         "opentelemetry"
     ).setLevel(logging.WARNING)
 
-    # -------------------------
-    # RENDERER
-    # -------------------------
 
     renderer = (
 
@@ -90,10 +74,6 @@ def configure_logger():
 
         else structlog.dev.ConsoleRenderer()
     )
-
-    # -------------------------
-    # STRUCTLOG CONFIG
-    # -------------------------
 
     structlog.configure(
 

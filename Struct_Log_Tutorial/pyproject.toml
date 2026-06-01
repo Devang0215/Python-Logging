@@ -16,3 +16,5 @@ dependencies = [
     "structlog>=25.5.0",
     "uvicorn>=0.47.0",
 ]
+
+
