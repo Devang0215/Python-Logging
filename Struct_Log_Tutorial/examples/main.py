@@ -23,18 +23,20 @@
 # )
 
 
-
 import structlog
 
-def add_app_name(logger,method_name,event_dict):
+
+def add_app_name(logger, method_name, event_dict):
     event_dict["app_name"] = "Auth_Service"
 
     return event_dict
 
-def add_environemnt(logger,method_name,event_dict):
+
+def add_environemnt(logger, method_name, event_dict):
     event_dict["environment"] = "production"
 
     return event_dict
+
 
 def add_severity(logger, method_name, event_dict):
 
@@ -50,6 +52,7 @@ def ignore_debug(logger, method_name, event_dict):
 
     return event_dict
 
+
 structlog.configure(
     processors=[
         add_app_name,
@@ -61,20 +64,17 @@ structlog.configure(
         structlog.processors.add_log_level,
         structlog.processors.StackInfoRenderer(),
         # structlog.dev.ConsoleRenderer()
-        structlog.processors.JSONRenderer(indent=4,sort_keys=True),
+        structlog.processors.JSONRenderer(indent=4, sort_keys=True),
         # structlog.processors.KeyValueRenderer()
     ],
     logger_factory=structlog.PrintLoggerFactory(),
-
-    cache_logger_on_first_use=True
+    cache_logger_on_first_use=True,
 )
 
 log = structlog.get_logger().bind(service="my_service")
 
 structlog.contextvars.bind_contextvars(
-    request_id="REQ-101",
-    user_id=45,
-    service="payment-api"
+    request_id="REQ-101", user_id=45, service="payment-api"
 )
 
 

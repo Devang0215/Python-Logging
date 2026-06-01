@@ -6,9 +6,7 @@ def bind_request_context():
 
     request_id = str(uuid.uuid4())
 
-    structlog.contextvars.bind_contextvars(
-        request_id=request_id
-    )
+    structlog.contextvars.bind_contextvars(request_id=request_id)
 
     return request_id
 

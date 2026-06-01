@@ -1,27 +1,12 @@
 from fastapi import FastAPI
 
-from fastapi.responses import (
-    Response
-)
+from fastapi.responses import Response
 
-from prometheus_client import (
-    generate_latest
-)
+from prometheus_client import generate_latest
 
-from opentelemetry.instrumentation.fastapi import (
-    FastAPIInstrumentor
-)
+from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
 
-from mylogger import (
-
-    configure_logger,
-
-    get_logger,
-
-    setup_tracing,
-
-    logging_middleware
-)
+from mylogger import configure_logger, get_logger, setup_tracing, logging_middleware
 
 setup_tracing()
 
@@ -33,21 +18,15 @@ app = FastAPI()
 
 FastAPIInstrumentor.instrument_app(app)
 
-app.middleware("http")(
-    logging_middleware
-)
+app.middleware("http")(logging_middleware)
 
 
 @app.get("/")
 async def home():
 
-    log.info(
-        "home_called"
-    )
+    log.info("home_called")
 
-    return {
-        "message": "hello"
-    }
+    return {"message": "hello"}
 
 
 @app.get("/error")
@@ -59,9 +38,4 @@ async def error():
 @app.get("/metrics")
 async def metrics():
 
-    return Response(
-
-        generate_latest(),
-
-        media_type="text/plain"
-    )
+    return Response(generate_latest(), media_type="text/plain")
