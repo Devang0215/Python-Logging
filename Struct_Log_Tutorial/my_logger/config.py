@@ -1,16 +1,33 @@
 import logging
+<<<<<<< HEAD
 import os
+=======
+
+>>>>>>> 926814889587ec2268b0c6dbb1f54e8cc6f6e15b
 from logging.handlers import RotatingFileHandler
 
 import structlog
 
+<<<<<<< HEAD
 from .processors import add_app_metadata, add_trace_context, mask_sensitive_data
 from .settings import JSON_LOGS, LOG_LEVEL
+=======
+from .settings import JSON_LOGS, LOG_LEVEL
+
+from .processors import add_trace_context, add_app_metadata, mask_sensitive_data
+>>>>>>> 926814889587ec2268b0c6dbb1f54e8cc6f6e15b
 
 
 def configure_logger():
 
     os.makedirs("logs", exist_ok=True)
+<<<<<<< HEAD
+=======
+
+    # -------------------------
+    # FILE HANDLER
+    # -------------------------
+>>>>>>> 926814889587ec2268b0c6dbb1f54e8cc6f6e15b
 
     file_handler = RotatingFileHandler(
         filename="logs/app.log", maxBytes=10_000_000, backupCount=5
@@ -24,7 +41,17 @@ def configure_logger():
 
     logging.getLogger("uvicorn.access").disabled = True
 
+<<<<<<< HEAD
     logging.getLogger("opentelemetry").setLevel(logging.WARNING)
+=======
+    logging.getLogger("uvicorn.access").disabled = True
+
+    logging.getLogger("opentelemetry").setLevel(logging.WARNING)
+
+    # -------------------------
+    # RENDERER
+    # -------------------------
+>>>>>>> 926814889587ec2268b0c6dbb1f54e8cc6f6e15b
 
     renderer = (
         structlog.processors.JSONRenderer(indent=4)

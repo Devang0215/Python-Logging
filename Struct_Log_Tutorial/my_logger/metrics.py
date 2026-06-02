@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+from prometheus_client import Counter, Histogram, Gauge, generate_latest
+>>>>>>> 926814889587ec2268b0c6dbb1f54e8cc6f6e15b
 from fastapi import APIRouter
 from fastapi.responses import Response
 from prometheus_client import Counter, Gauge, Histogram, generate_latest
