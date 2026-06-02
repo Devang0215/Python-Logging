@@ -1,0 +1,74 @@
+{
+    "service": "app-service",
+    "event": "Root endpoint accessed",
+    "request_id": "b137f75a-7103-45f0-b0ab-8bd5fcf4f237",
+    "trace_id": "6f23909c987376c07e7ead7ee466170f",
+    "span_id": "fc887e7ec74d02d3",
+    "hostname": "devang-kamdar",
+    "timestamp": "2026-06-02T11:18:02.597816Z",
+    "level": "info"
+}
+{
+    "service": "app-service",
+    "event": "Health check endpoint accessed",
+    "request_id": "bb178b3c-0f47-4feb-9294-3b87c725a02d",
+    "trace_id": "0565dad8059bddfd0ac3bb27cb0bc166",
+    "span_id": "700514aed23b079b",
+    "hostname": "devang-kamdar",
+    "timestamp": "2026-06-02T11:18:28.461013Z",
+    "level": "info"
+}
+{
+    "service": "app-service",
+    "event": "Health check endpoint accessed",
+    "request_id": "e4626323-3ebd-4f00-b802-0796d6367517",
+    "trace_id": "83fab0ddcee7e5579b37d7e43ac794fb",
+    "span_id": "fc292cb526b41fb2",
+    "hostname": "devang-kamdar",
+    "timestamp": "2026-06-02T11:23:05.443621Z",
+    "level": "info"
+}
+{
+    "service": "app-service",
+    "event": "Health check endpoint accessed",
+    "request_id": "24c58d5e-d715-40b1-8f7c-4d1d3a85b81c",
+    "trace_id": "b998e1a18c1866bc4372d0dcb35f8075",
+    "span_id": "bb36b8b7601b3db4",
+    "hostname": "devang-kamdar",
+    "timestamp": "2026-06-02T11:24:46.988633Z",
+    "level": "info"
+}
+{
+    "service": "app-service",
+    "method": "GET",
+    "path": "/health",
+    "event": "request_started",
+    "request_id": "8562d006-9c24-487a-9f0e-2279c2eaabf0",
+    "trace_id": "e6a507d3ed0e3cedb09bb309f6516d35",
+    "span_id": "4de66871bad4b4f3",
+    "hostname": "devang-kamdar",
+    "timestamp": "2026-06-02T11:27:21.240551Z",
+    "level": "info"
+}
+{
+    "service": "app-service",
+    "event": "Health check endpoint accessed",
+    "request_id": "8562d006-9c24-487a-9f0e-2279c2eaabf0",
+    "trace_id": "e6a507d3ed0e3cedb09bb309f6516d35",
+    "span_id": "4de66871bad4b4f3",
+    "hostname": "devang-kamdar",
+    "timestamp": "2026-06-02T11:27:21.241158Z",
+    "level": "info"
+}
+{
+    "service": "app-service",
+    "status_code": 200,
+    "duration": 0.0009,
+    "event": "request_completed",
+    "request_id": "8562d006-9c24-487a-9f0e-2279c2eaabf0",
+    "trace_id": "e6a507d3ed0e3cedb09bb309f6516d35",
+    "span_id": "4de66871bad4b4f3",
+    "hostname": "devang-kamdar",
+    "timestamp": "2026-06-02T11:27:21.241487Z",
+    "level": "info"
+}
