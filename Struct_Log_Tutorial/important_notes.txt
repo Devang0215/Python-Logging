@@ -1,0 +1,3 @@
+filtering using structlog.DropEvent
+Context variables 
+

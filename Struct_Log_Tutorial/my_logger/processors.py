@@ -32,4 +32,20 @@ def add_trace_context(logger, method_name, event_dict):
 
         event_dict["span_id"] = format(span_context.span_id, "016x")
 
+        event_dict["trace_flags"] = int(span_context.trace_flags)
+
+    return event_dict
+
+
+def rename_level(logger, method_name, event_dict):
+    mapping ={
+        "DEBUG" : 5,
+        "INFO" : 9,
+        "WARNING" : 13,
+        "ERROR" : 17,
+        "CRITICAL" : 21,
+    }
+    if "level" in event_dict:
+        event_dict["severityText"] = event_dict.pop("level").upper()
+        event_dict["severityNumber"] = mapping.get(event_dict["severityText"], 0)
     return event_dict
