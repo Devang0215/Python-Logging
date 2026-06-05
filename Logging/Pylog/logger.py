@@ -1,16 +1,27 @@
 from datetime import datetime
+from typing import Any
 
 import structlog
 from opentelemetry import trace
 
+SEVERITY = {
+    "DEBUG": 5,
+    "INFO": 9,
+    "WARN": 13,
+    "ERROR": 17,
+}
 
-def get_otel_context():
+
+def get_otel_context() -> dict[str, Any]:
     span = trace.get_current_span()
 
     if not span:
         return {}
 
     ctx = span.get_span_context()
+
+    if not ctx.is_valid:
+        return {}
 
     return {
         "trace_id": format(ctx.trace_id, "032x"),
@@ -20,74 +31,108 @@ def get_otel_context():
 
 
 class Logger:
-    def __init__(self, service_name="app-service"):
+    def __init__(
+        self,
+        service_name: str = "app-service",
+        base: dict[str, Any] | None = None,
+        custom_level: str | None = None,
+    ):
         self.service_name = service_name
+        self.base = base or {}
+        self.custom_level = custom_level
 
         self.logger = structlog.get_logger()
 
-    def _build_record(
+    def build_record(
         self,
-        level,
-        message,
-        **kwargs,
-    ):
+        level: str,
+        message: str,
+        event_name: str | None = None,
+        **attributes,
+    ) -> dict[str, Any]:
         return {
+            "level": self.custom_level or level,
             "severityText": level,
-            "severityNumber": 1, 
+            "severityNumber": SEVERITY.get(level, 1),
             "message": message,
+            "eventName": event_name,
             "timestamp": datetime.utcnow().isoformat(),
             "service": self.service_name,
+            **self.base,
             **get_otel_context(),
-            **kwargs,
+            **attributes,
         }
-    def info(self, message, **kwargs):
-        self.logger.info(
-            message,
-            **self._build_record(
-                "INFO",
-                message,
-                **kwargs,
-            ),
+
+    def log(
+        self,
+        level: str,
+        message: str,
+        event_name: str | None = None,
+        **kwargs,
+    ) -> None:
+        record = self.build_record(
+            level=level,
+            message=message,
+            event_name=event_name,
+            **kwargs,
         )
-    def error(self, message, **kwargs):
-        self.logger.error(
-            message,
-            **self._build_record(
-                "ERROR",
-                message,
-                **kwargs,
-            ),
-        )
-    def warn(self, message, **kwargs):
-        self.logger.warning(
-            message,
-            **self._build_record(
-                "WARN",
-                message,
-                **kwargs,
-            ),
-        )
-    def debug(self, message, **kwargs):
-        self.logger.debug(
-            message,
-            **self._build_record(
-                "DEBUG",
-                message,
-                **kwargs,
-            ),
-        )
+
+        getattr(self.logger, level.lower())(message, **record)
+
+    def info(
+        self,
+        message: str,
+        event_name: str | None = None,
+        **kwargs,
+    ) -> None:
+        self.log("INFO", message, event_name, **kwargs)
+
+    def error(
+        self,
+        message: str,
+        event_name: str | None = None,
+        **kwargs,
+    ) -> None:
+        self.log("ERROR", message, event_name, **kwargs)
+
+    def warn(
+        self,
+        message: str,
+        event_name: str | None = None,
+        **kwargs,
+    ) -> None:
+        self.log("WARN", message, event_name, **kwargs)
+
+    def debug(
+        self,
+        message: str,
+        event_name: str | None = None,
+        **kwargs,
+    ) -> None:
+        self.log("DEBUG", message, event_name, **kwargs)
+
 
 def configure_structlog():
     structlog.configure(
         processors=[
             structlog.contextvars.merge_contextvars,
             structlog.processors.TimeStamper(fmt="iso"),
-            structlog.processors.JSONRenderer(indent=4),
+            structlog.processors.JSONRenderer(
+                indent=4
+            ),
         ]
     )
 
+
 def get_logger(
-    service_name="app-service",
-):
+    service_name: str = "app-service",
+    base: dict[str, Any] | None = None,
+    custom_level: str | None = None,
+) -> Logger:
     configure_structlog()
-    return Logger(service_name)
+
+    return Logger(
+        service_name=service_name,
+        base=base,
+        custom_level=custom_level,
+    )

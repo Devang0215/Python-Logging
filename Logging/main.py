@@ -1,35 +1,76 @@
 from fastapi import FastAPI
+from opentelemetry import trace
 from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
+
 from Pylog import (
     LoggingMiddleware,
     get_logger,
     init_telemetry,
 )
-from opentelemetry import trace
-
 
 init_telemetry(
     service_name="app-service",
-    exporter_endpoint="http://localhost:4318/v1/traces",
+    trace_exporter_endpoint="http://localhost:4318/v1/traces",
+    metric_exporter_endpoint="http://localhost:4318/v1/metrics",
+    log_exporter_endpoint="http://localhost:4318/v1/logs",
+    environment="development",
 )
 
-logger = get_logger("user-service")
+logger = get_logger(
+    service_name="user-service",
+    base={
+        "application": "fastapi-demo",
+    },
+)
+
+
 app = FastAPI()
 
 app.add_middleware(
     LoggingMiddleware,
     logger=logger,
+    environment="development",
+    request_data=lambda req: {
+        "method": req.method,
+        "path": req.url.path,
+        "query_params": str(req.query_params),
+        "client_ip": req.client.host if req.client else None,
+    },
+    response_data=lambda req, res: {
+        "status_code": res.status_code,
+    },
 )
+
 FastAPIInstrumentor.instrument_app(app)
 
 @app.get("/")
 async def home():
-    span = trace.get_current_span()
-    ctx = span.get_span_context()
+    logger.info(
+        "Home endpoint called",
+        event_name="home_request",
+    )
+    print("This is a log message from the home endpoint") 
+    return {
+        "ok": True,
+    }
 
-    print("SPAN:", span)
-    print("TRACE ID:", ctx.trace_id)
-    print("SPAN ID:", ctx.span_id)
-    print("VALID:", ctx.is_valid)
+@app.get("/users/{user_id}")
+async def get_user(user_id: int):
+    logger.info(
+        "Fetching user",
+        event_name="get_user",
+        user_id=user_id,
+    )
 
-    return {"ok": True}
+    return {
+        "user_id": user_id,
+    }
+
+@app.get("/error")
+async def error():
+    logger.error(
+        "Test error generated",
+        event_name="test_error",
+    )
+
+    raise Exception("Sample Exception")
