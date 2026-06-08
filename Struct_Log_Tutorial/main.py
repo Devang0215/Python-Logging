@@ -47,8 +47,11 @@ async def health_check():
         "service": "sample-api",
     }
     logger.info("Root endpoint accessed", message=message)
+    check_done()
     return {"status": "healthy", "service": "sample-api"}
 
+def check_done():
+    logger.info("Checking if done")
 
 @app.get("/slow")
 async def slow_endpoint():

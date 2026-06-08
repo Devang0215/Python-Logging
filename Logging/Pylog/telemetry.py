@@ -1,35 +1,25 @@
 from opentelemetry import _logs, metrics, trace
-from opentelemetry.exporter.otlp.proto.http._log_exporter import OTLPLogExporter
 from opentelemetry.exporter.otlp.proto.http.metric_exporter import OTLPMetricExporter
 from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
-from opentelemetry.sdk._logs import LoggerProvider
-from opentelemetry.sdk._logs.export import (
-    ConsoleLogExporter,
-    SimpleLogRecordProcessor,
-)
 
-# Metrics
+# logs
+from opentelemetry.sdk._logs import LoggerProvider
+
+# metrics
 from opentelemetry.sdk.metrics import MeterProvider
-from opentelemetry.sdk.metrics.export import (
-    ConsoleMetricExporter,
-    PeriodicExportingMetricReader,
-)
+from opentelemetry.sdk.metrics.export import PeriodicExportingMetricReader
 from opentelemetry.sdk.resources import Resource
 
-# Traces
+# traces
 from opentelemetry.sdk.trace import TracerProvider
-from opentelemetry.sdk.trace.export import (
-    BatchSpanProcessor,
-    ConsoleSpanExporter,
-    SimpleSpanProcessor,
-)
+from opentelemetry.sdk.trace.export import BatchSpanProcessor
 
 _started = False
 
 
 def init_telemetry(
     service_name: str,
-    trace_exporter_endpoint: str,
+    trace_exporter_endpoint: str | None = None,
     metric_exporter_endpoint: str | None = None,
     log_exporter_endpoint: str | None = None,
     environment: str = "development",
@@ -46,18 +36,22 @@ def init_telemetry(
         }
     )
 
-    tracer_provider = TracerProvider(resource=resource)
+    # For Traces
 
-    # trace_exporter = OTLPSpanExporter(
-    #     endpoint=trace_exporter_endpoint,
-    # )
+    tracer_provider = TracerProvider(
+        resource=resource,
+    )
 
-    # tracer_provider.add_span_processor(trace_exporter)
+    if trace_exporter_endpoint:
+        trace_exporter = OTLPSpanExporter(
+            endpoint=trace_exporter_endpoint,
+        )
 
-    if environment != "production":
-        tracer_provider.add_span_processor(SimpleSpanProcessor(ConsoleSpanExporter()))
+        tracer_provider.add_span_processor(BatchSpanProcessor(trace_exporter))
 
     trace.set_tracer_provider(tracer_provider)
+
+    # For metrics
 
     if metric_exporter_endpoint:
         metric_exporter = OTLPMetricExporter(
@@ -76,29 +70,10 @@ def init_telemetry(
 
         metrics.set_meter_provider(meter_provider)
 
-    # Optional Console Metrics
-    elif environment != "production":
-        metric_reader = PeriodicExportingMetricReader(
-            exporter=ConsoleMetricExporter(),
-            export_interval_millis=5000,
-        )
-
-        meter_provider = MeterProvider(
-            resource=resource,
-            metric_readers=[metric_reader],
-        )
-
-        metrics.set_meter_provider(meter_provider)
-
+    # For   logs
     logger_provider = LoggerProvider(
         resource=resource,
     )
-
-    if environment != "production":
-        logger_provider.add_log_record_processor(
-            SimpleLogRecordProcessor(ConsoleLogExporter())
-        )
-
 
     _logs.set_logger_provider(logger_provider)
 

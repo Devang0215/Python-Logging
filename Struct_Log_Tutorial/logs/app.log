@@ -1176,3 +1176,338 @@
     "severityNumber": 9,
     "timestamp": "2026-06-04T06:40:00.837067Z"
 }
+{
+    "service": "my-fastapi-service",
+    "method": "GET",
+    "path": "/",
+    "event": "request_started",
+    "request_id": "569de3d6-fe3e-4da9-ae66-3530cd9fa582",
+    "trace_id": "f5cd7d653d42b05b8d96c5fd81a4df32",
+    "span_id": "051a05d0e5fe8271",
+    "trace_flags": 3,
+    "hostname": "devang-kamdar",
+    "severityText": "INFO",
+    "severityNumber": 9,
+    "timestamp": "2026-06-08T07:25:21.524355Z"
+}
+{
+    "service": "my-fastapi-service",
+    "message": "Welcome to the Sample FastAPI Application with Structured Logging and OpenTelemetry!",
+    "event": "Root endpoint accessed",
+    "request_id": "569de3d6-fe3e-4da9-ae66-3530cd9fa582",
+    "trace_id": "f5cd7d653d42b05b8d96c5fd81a4df32",
+    "span_id": "018b6b4289e0ffd4",
+    "trace_flags": 3,
+    "hostname": "devang-kamdar",
+    "severityText": "INFO",
+    "severityNumber": 9,
+    "timestamp": "2026-06-08T07:25:21.525489Z"
+}
+{
+    "service": "my-fastapi-service",
+    "status_code": 200,
+    "duration": 0.0016,
+    "event": "request_completed",
+    "request_id": "569de3d6-fe3e-4da9-ae66-3530cd9fa582",
+    "trace_id": "f5cd7d653d42b05b8d96c5fd81a4df32",
+    "span_id": "051a05d0e5fe8271",
+    "trace_flags": 3,
+    "hostname": "devang-kamdar",
+    "severityText": "INFO",
+    "severityNumber": 9,
+    "timestamp": "2026-06-08T07:25:21.525922Z"
+}
+{
+    "service": "my-fastapi-service",
+    "method": "GET",
+    "path": "/docs",
+    "event": "request_started",
+    "request_id": "2f93bf11-988a-4844-8561-4cbdb2ffcd88",
+    "trace_id": "a519716a8f25ce834187f42335fbb195",
+    "span_id": "50fb13e1669a614b",
+    "trace_flags": 3,
+    "hostname": "devang-kamdar",
+    "severityText": "INFO",
+    "severityNumber": 9,
+    "timestamp": "2026-06-08T07:25:28.278141Z"
+}
+{
+    "service": "my-fastapi-service",
+    "status_code": 200,
+    "duration": 0.0004,
+    "event": "request_completed",
+    "request_id": "2f93bf11-988a-4844-8561-4cbdb2ffcd88",
+    "trace_id": "a519716a8f25ce834187f42335fbb195",
+    "span_id": "50fb13e1669a614b",
+    "trace_flags": 3,
+    "hostname": "devang-kamdar",
+    "severityText": "INFO",
+    "severityNumber": 9,
+    "timestamp": "2026-06-08T07:25:28.278560Z"
+}
+{
+    "service": "my-fastapi-service",
+    "method": "GET",
+    "path": "/openapi.json",
+    "event": "request_started",
+    "request_id": "281008c4-b1f2-4f95-8394-6bcf4d28f7c7",
+    "trace_id": "972327a052a2227f0b686912716108d5",
+    "span_id": "9f0ab9f0e720ebea",
+    "trace_flags": 3,
+    "hostname": "devang-kamdar",
+    "severityText": "INFO",
+    "severityNumber": 9,
+    "timestamp": "2026-06-08T07:25:28.328705Z"
+}
+{
+    "service": "my-fastapi-service",
+    "status_code": 200,
+    "duration": 0.0079,
+    "event": "request_completed",
+    "request_id": "281008c4-b1f2-4f95-8394-6bcf4d28f7c7",
+    "trace_id": "972327a052a2227f0b686912716108d5",
+    "span_id": "9f0ab9f0e720ebea",
+    "trace_flags": 3,
+    "hostname": "devang-kamdar",
+    "severityText": "INFO",
+    "severityNumber": 9,
+    "timestamp": "2026-06-08T07:25:28.336682Z"
+}
+{
+    "service": "my-fastapi-service",
+    "method": "GET",
+    "path": "/",
+    "event": "request_started",
+    "request_id": "3cc9b888-1a6b-4cbe-97e4-55654a5b2821",
+    "trace_id": "22f623a827e6391f1f11a4a168227d25",
+    "span_id": "62f371fc207b1e2e",
+    "trace_flags": 3,
+    "hostname": "devang-kamdar",
+    "severityText": "INFO",
+    "severityNumber": 9,
+    "timestamp": "2026-06-08T07:26:13.633438Z"
+}
+{
+    "service": "my-fastapi-service",
+    "message": "Welcome to the Sample FastAPI Application with Structured Logging and OpenTelemetry!",
+    "event": "Root endpoint accessed",
+    "request_id": "3cc9b888-1a6b-4cbe-97e4-55654a5b2821",
+    "trace_id": "22f623a827e6391f1f11a4a168227d25",
+    "span_id": "a984d56dde0fdb88",
+    "trace_flags": 3,
+    "hostname": "devang-kamdar",
+    "severityText": "INFO",
+    "severityNumber": 9,
+    "timestamp": "2026-06-08T07:26:13.634139Z"
+}
+{
+    "service": "my-fastapi-service",
+    "status_code": 200,
+    "duration": 0.0011,
+    "event": "request_completed",
+    "request_id": "3cc9b888-1a6b-4cbe-97e4-55654a5b2821",
+    "trace_id": "22f623a827e6391f1f11a4a168227d25",
+    "span_id": "62f371fc207b1e2e",
+    "trace_flags": 3,
+    "hostname": "devang-kamdar",
+    "severityText": "INFO",
+    "severityNumber": 9,
+    "timestamp": "2026-06-08T07:26:13.634491Z"
+}
+{
+    "service": "my-fastapi-service",
+    "method": "GET",
+    "path": "/health",
+    "event": "request_started",
+    "request_id": "a6890262-ec6c-4d32-8455-c108aa394f9b",
+    "trace_id": "1b4bfd0d0a111e0b0ec83e041b4d1b47",
+    "span_id": "a085cae30efdda45",
+    "trace_flags": 3,
+    "hostname": "devang-kamdar",
+    "severityText": "INFO",
+    "severityNumber": 9,
+    "timestamp": "2026-06-08T07:27:50.804514Z"
+}
+{
+    "service": "my-fastapi-service",
+    "message": {
+        "status": "healthy",
+        "service": "sample-api"
+    },
+    "event": "Root endpoint accessed",
+    "request_id": "a6890262-ec6c-4d32-8455-c108aa394f9b",
+    "trace_id": "1b4bfd0d0a111e0b0ec83e041b4d1b47",
+    "span_id": "a085cae30efdda45",
+    "trace_flags": 3,
+    "hostname": "devang-kamdar",
+    "severityText": "INFO",
+    "severityNumber": 9,
+    "timestamp": "2026-06-08T07:27:50.805378Z"
+}
+{
+    "service": "my-fastapi-service",
+    "status_code": 200,
+    "duration": 0.0015,
+    "event": "request_completed",
+    "request_id": "a6890262-ec6c-4d32-8455-c108aa394f9b",
+    "trace_id": "1b4bfd0d0a111e0b0ec83e041b4d1b47",
+    "span_id": "a085cae30efdda45",
+    "trace_flags": 3,
+    "hostname": "devang-kamdar",
+    "severityText": "INFO",
+    "severityNumber": 9,
+    "timestamp": "2026-06-08T07:27:50.806048Z"
+}
+{
+    "service": "my-fastapi-service",
+    "method": "GET",
+    "path": "/docs",
+    "event": "request_started",
+    "request_id": "8d12e053-4d16-435b-8708-ca5fb69e5977",
+    "trace_id": "0457c3f7e3b99c2c7dac498a6666a7b5",
+    "span_id": "810fd7f40c9a1542",
+    "trace_flags": 3,
+    "hostname": "devang-kamdar",
+    "severityText": "INFO",
+    "severityNumber": 9,
+    "timestamp": "2026-06-08T07:28:21.638157Z"
+}
+{
+    "service": "my-fastapi-service",
+    "status_code": 200,
+    "duration": 0.0004,
+    "event": "request_completed",
+    "request_id": "8d12e053-4d16-435b-8708-ca5fb69e5977",
+    "trace_id": "0457c3f7e3b99c2c7dac498a6666a7b5",
+    "span_id": "810fd7f40c9a1542",
+    "trace_flags": 3,
+    "hostname": "devang-kamdar",
+    "severityText": "INFO",
+    "severityNumber": 9,
+    "timestamp": "2026-06-08T07:28:21.638598Z"
+}
+{
+    "service": "my-fastapi-service",
+    "method": "GET",
+    "path": "/openapi.json",
+    "event": "request_started",
+    "request_id": "ec6cff77-6745-44bc-9226-7ca361e158a0",
+    "trace_id": "d990381950e1fb65b493cebe4a2e9d4f",
+    "span_id": "53d8a66bf7223f4f",
+    "trace_flags": 3,
+    "hostname": "devang-kamdar",
+    "severityText": "INFO",
+    "severityNumber": 9,
+    "timestamp": "2026-06-08T07:28:21.684914Z"
+}
+{
+    "service": "my-fastapi-service",
+    "status_code": 200,
+    "duration": 0.0067,
+    "event": "request_completed",
+    "request_id": "ec6cff77-6745-44bc-9226-7ca361e158a0",
+    "trace_id": "d990381950e1fb65b493cebe4a2e9d4f",
+    "span_id": "53d8a66bf7223f4f",
+    "trace_flags": 3,
+    "hostname": "devang-kamdar",
+    "severityText": "INFO",
+    "severityNumber": 9,
+    "timestamp": "2026-06-08T07:28:21.691675Z"
+}
+{
+    "service": "my-fastapi-service",
+    "method": "GET",
+    "path": "/health",
+    "event": "request_started",
+    "request_id": "3c978f21-d4f2-42f9-85c9-7c48ad2f0587",
+    "trace_id": "ca3d31295a7f880069257b7d589f6b90",
+    "span_id": "eb318bdb4f78e3f1",
+    "trace_flags": 3,
+    "hostname": "devang-kamdar",
+    "severityText": "INFO",
+    "severityNumber": 9,
+    "timestamp": "2026-06-08T07:28:36.209798Z"
+}
+{
+    "service": "my-fastapi-service",
+    "message": {
+        "status": "healthy",
+        "service": "sample-api"
+    },
+    "event": "Root endpoint accessed",
+    "request_id": "3c978f21-d4f2-42f9-85c9-7c48ad2f0587",
+    "trace_id": "ca3d31295a7f880069257b7d589f6b90",
+    "span_id": "eb318bdb4f78e3f1",
+    "trace_flags": 3,
+    "hostname": "devang-kamdar",
+    "severityText": "INFO",
+    "severityNumber": 9,
+    "timestamp": "2026-06-08T07:28:36.210410Z"
+}
+{
+    "service": "my-fastapi-service",
+    "event": "Checking if done",
+    "request_id": "3c978f21-d4f2-42f9-85c9-7c48ad2f0587",
+    "trace_id": "ca3d31295a7f880069257b7d589f6b90",
+    "span_id": "eb318bdb4f78e3f1",
+    "trace_flags": 3,
+    "hostname": "devang-kamdar",
+    "severityText": "INFO",
+    "severityNumber": 9,
+    "timestamp": "2026-06-08T07:28:36.210532Z"
+}
+{
+    "service": "my-fastapi-service",
+    "status_code": 200,
+    "duration": 0.001,
+    "event": "request_completed",
+    "request_id": "3c978f21-d4f2-42f9-85c9-7c48ad2f0587",
+    "trace_id": "ca3d31295a7f880069257b7d589f6b90",
+    "span_id": "eb318bdb4f78e3f1",
+    "trace_flags": 3,
+    "hostname": "devang-kamdar",
+    "severityText": "INFO",
+    "severityNumber": 9,
+    "timestamp": "2026-06-08T07:28:36.210845Z"
+}
+{
+    "service": "my-fastapi-service",
+    "method": "GET",
+    "path": "/",
+    "event": "request_started",
+    "request_id": "6034503a-da49-4158-88bc-d2580550587b",
+    "trace_id": "4ad500ffd9be3d4ec3d917119ba5d6f0",
+    "span_id": "0a5dfc02428a6e23",
+    "trace_flags": 3,
+    "hostname": "devang-kamdar",
+    "severityText": "INFO",
+    "severityNumber": 9,
+    "timestamp": "2026-06-08T07:28:50.797707Z"
+}
+{
+    "service": "my-fastapi-service",
+    "message": "Welcome to the Sample FastAPI Application with Structured Logging and OpenTelemetry!",
+    "event": "Root endpoint accessed",
+    "request_id": "6034503a-da49-4158-88bc-d2580550587b",
+    "trace_id": "4ad500ffd9be3d4ec3d917119ba5d6f0",
+    "span_id": "133993bae7fe918a",
+    "trace_flags": 3,
+    "hostname": "devang-kamdar",
+    "severityText": "INFO",
+    "severityNumber": 9,
+    "timestamp": "2026-06-08T07:28:50.798177Z"
+}
+{
+    "service": "my-fastapi-service",
+    "status_code": 200,
+    "duration": 0.0008,
+    "event": "request_completed",
+    "request_id": "6034503a-da49-4158-88bc-d2580550587b",
+    "trace_id": "4ad500ffd9be3d4ec3d917119ba5d6f0",
+    "span_id": "0a5dfc02428a6e23",
+    "trace_flags": 3,
+    "hostname": "devang-kamdar",
+    "severityText": "INFO",
+    "severityNumber": 9,
+    "timestamp": "2026-06-08T07:28:50.798477Z"
+}

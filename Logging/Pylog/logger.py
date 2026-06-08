@@ -1,9 +1,11 @@
 from datetime import datetime
+from functools import wraps
 from typing import Any
 
 import structlog
 from opentelemetry import trace
 
+tracer = trace.get_tracer("simple-otel-logger")
 SEVERITY = {
     "DEBUG": 5,
     "INFO": 9,
@@ -30,6 +32,47 @@ def get_otel_context() -> dict[str, Any]:
     }
 
 
+async def with_span(name, fn, logger=None):
+    with tracer.start_as_current_span(name) as span:
+        try:
+            result = await fn()
+
+            span.set_attributes(
+                {
+                    "app.operation": name,
+                    "app.success": True,
+                }
+            )
+
+            return result
+
+        except Exception as exc:
+            span.record_exception(exc)
+            span.set_status(trace.Status(trace.StatusCode.ERROR))
+            raise
+
+        finally:
+            if logger:
+                logger.info(f"{name} -> (Done)")
+
+
+def traced(span_name: str | None = None):
+
+    def decorator(func):
+
+        @wraps(func)
+        async def wrapper(*args, **kwargs):
+
+            name = span_name or func.__name__
+
+            with tracer.start_as_current_span(name):
+                return await func(*args, **kwargs)
+
+        return wrapper
+
+    return decorator
+
+
 class Logger:
     def __init__(
         self,
@@ -51,16 +94,24 @@ class Logger:
         **attributes,
     ) -> dict[str, Any]:
         return {
-            "level": self.custom_level or level,
+            "resources": {
+                "attributes": {
+                    "service": self.service_name,
+                }
+            },
+            "instrumentationScope": {
+                "name": "simple-otel-logger",
+                "version": "1.0.0",
+                "schemaUrl": None,
+            },
             "severityText": level,
             "severityNumber": SEVERITY.get(level, 1),
             "message": message,
             "eventName": event_name,
             "timestamp": datetime.utcnow().isoformat(),
-            "service": self.service_name,
             **self.base,
             **get_otel_context(),
-            **attributes,
+            "attributes": attributes,
         }
 
     def log(
@@ -117,9 +168,7 @@ def configure_structlog():
         processors=[
             structlog.contextvars.merge_contextvars,
             structlog.processors.TimeStamper(fmt="iso"),
-            structlog.processors.JSONRenderer(
-                indent=4
-            ),
+            structlog.processors.JSONRenderer(indent=4),
         ]
     )
 

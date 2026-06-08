@@ -1,4 +1,4 @@
-from .logger import Logger, get_logger
+from .logger import Logger, get_logger, traced
 from .middleware import LoggingMiddleware
 from .telemetry import init_telemetry
 
@@ -7,4 +7,5 @@ __all__ = [
     "get_logger",
     "LoggingMiddleware",
     "init_telemetry",
+    "traced",
 ]

@@ -3,6 +3,7 @@ import uuid
 from typing import Callable
 
 from starlette.middleware.base import BaseHTTPMiddleware
+
 from .logger import get_otel_context
 
 
@@ -31,9 +32,7 @@ class LoggingMiddleware(BaseHTTPMiddleware):
 
         otel_context = get_otel_context()
 
-        request_id = (
-            header_request_id or otel_context.get("trace_id") or str(uuid.uuid4())
-        )
+        request_id = header_request_id or otel_context.get("trace_id") or str(uuid.uuid4())
 
         start_time = time.time()
 
@@ -59,9 +58,7 @@ class LoggingMiddleware(BaseHTTPMiddleware):
                 status_code=response.status_code,
             )
 
-        response_payload = (
-            self.response_data(request, response) if self.response_data else {}
-        )
+        response_payload = self.response_data(request, response) if self.response_data else {}
 
         self.logger.info(
             "HTTP response sent",
