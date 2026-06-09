@@ -186,9 +186,3 @@ def get_logger(
         base=base,
         custom_level=custom_level,
     )
-
-
-# Metrics for logs
-
-_logs_total = counter("pylog_logs_total")
-_errors_total = counter("pylog_errors_total")

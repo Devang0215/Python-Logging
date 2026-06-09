@@ -1,6 +1,4 @@
 from typing import Any, Dict, TypedDict
-
-
 class LogRecord(TypedDict, total=False):
     level: str
     message: str

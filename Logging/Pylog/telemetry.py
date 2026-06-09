@@ -87,5 +87,24 @@ def init_telemetry(
 def get_meter():
     if _meter is None:
         raise RuntimeError("Telemetry has not been initialized. Please call init_telemetry first.")
-
     return _meter
+
+# tracer
+def get_tracer(name: str = "simple-otel-logger"):
+    return trace.get_tracer(name)
+
+
+@contextmanager
+def custom_span(
+    name: str,
+    attributes: dict | None = None,
+):
+    tracer = trace.get_tracer("simple-otel-logger")
+
+    with tracer.start_as_current_span(name) as span:
+
+        if attributes:
+            for key, value in attributes.items():
+                span.set_attribute(key, value)
+
+        yield span

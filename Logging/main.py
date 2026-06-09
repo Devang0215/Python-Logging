@@ -1,7 +1,9 @@
 from fastapi import FastAPI
 from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
-from Pylog import LoggingMiddleware, get_logger, traced
+from Pylog import LoggingMiddleware, get_logger, traced,initialise_service
 
+
+initialise_service()
 logger = get_logger(service_name="Post-doc-service")
 
 app = FastAPI()
