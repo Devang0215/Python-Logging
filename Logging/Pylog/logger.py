@@ -106,7 +106,7 @@ class Logger:
             },
             "severityText": level,
             "severityNumber": SEVERITY.get(level, 1),
-            "message": message,
+            # "message": message,
             "eventName": event_name,
             "timestamp": datetime.utcnow().isoformat(),
             **self.base,

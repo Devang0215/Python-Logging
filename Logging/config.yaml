@@ -2,8 +2,8 @@ receivers:
   otlp:
     protocols:
       grpc:
-        endpoint: 0.0.0.0:4317
       http:
+<<<<<<< HEAD:Logging/config.yaml
         endpoint: 0.0.0.0:4318
   prometheus:
     config:
@@ -12,29 +12,23 @@ receivers:
           scrape_interval: 5s
           static_configs:
             - targets: [localhost:8888]
-exporters:
-  otlp_grpc:
-    endpoint: otelcol:4317
-    sending_queue:
-      batch:
+=======
 
-extensions:
-  health_check:
-    endpoint: 0.0.0.0:13133
-  pprof:
-    endpoint: 0.0.0.0:1777
-  zpages:
-    endpoint: 0.0.0.0:55679
+>>>>>>> 9e8898f (changes made for metrics):Logging/otel-collector-config.yaml
+exporters:
+  debug:
+    verbosity: detailed
 
 service:
-  extensions: [health_check, pprof, zpages]
   pipelines:
     traces:
       receivers: [otlp]
-      exporters: [otlp_grpc]
+      exporters: [debug]
+
     metrics:
       receivers: [otlp]
-      exporters: [otlp_grpc]
+      exporters: [debug]
+
     logs:
       receivers: [otlp]
-      exporters: [otlp_grpc]
+      exporters: [debug]
