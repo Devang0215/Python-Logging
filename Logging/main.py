@@ -1,6 +1,9 @@
 from fastapi import FastAPI
 from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
-
+# =============================================================
+from opentelemetry.sdk.metrics import Counter, MeterProvider
+from opentelemetry.metrics import set_meter_provider,get_meter
+# ==============================================================
 from Pylog import (
     LoggingMiddleware,
     get_logger,
@@ -16,6 +19,31 @@ init_telemetry(
     log_exporter_endpoint="http://localhost:4318/v1/logs",
     environment="development",
 )
+# ================================
+provider = MeterProvider()
+
+set_meter_provider(provider)
+
+meter = get_meter(
+    name="My application",
+    version="1.0.0"
+)
+
+
+counter = meter.create_counter(
+    name="requests_total",
+    description="Total number of requests",
+    unit="1",
+)
+
+histogram = meter.create_histogram(
+    "request_duration_ms"
+)
+
+histogram.record(250)
+histogram.record(100)
+histogram.record(500)
+# ============================
 
 logger = get_logger(service_name="Post-doc-service")
 
