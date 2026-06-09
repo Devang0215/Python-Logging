@@ -1,6 +1,7 @@
-from fastapi import FastAPI
-from random import randint
 import copy
+from random import randint
+
+from fastapi import FastAPI
 
 app = FastAPI()
 

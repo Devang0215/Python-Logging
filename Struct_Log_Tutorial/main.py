@@ -4,10 +4,9 @@ import uuid
 from typing import List
 
 from fastapi import FastAPI, HTTPException, Query
-from pydantic import BaseModel
-
-from my_logger import get_logger, logging_middleware,create_span
+from my_logger import create_span, get_logger, logging_middleware
 from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
+from pydantic import BaseModel
 
 app = FastAPI(title="Sample FastAPI Application", version="1.0.0")
 

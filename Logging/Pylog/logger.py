@@ -1,3 +1,4 @@
+from .metrics import counter
 from datetime import datetime
 from functools import wraps
 from typing import Any
@@ -185,3 +186,9 @@ def get_logger(
         base=base,
         custom_level=custom_level,
     )
+
+
+# Metrics for logs
+
+_logs_total = counter("pylog_logs_total")
+_errors_total = counter("pylog_errors_total")

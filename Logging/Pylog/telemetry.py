@@ -14,7 +14,9 @@ from opentelemetry.sdk.resources import Resource
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
 
+global _started, _meter
 _started = False
+_meter = None
 
 
 def init_telemetry(
@@ -24,7 +26,7 @@ def init_telemetry(
     log_exporter_endpoint: str | None = None,
     environment: str = "development",
 ):
-    global _started
+    global _started, _meter
 
     if _started:
         return
@@ -70,6 +72,8 @@ def init_telemetry(
 
         metrics.set_meter_provider(meter_provider)
 
+        _meter = metrics.get_meter(service_name, version="1.0.0")
+
     # For   logs
     logger_provider = LoggerProvider(
         resource=resource,
@@ -78,3 +82,10 @@ def init_telemetry(
     _logs.set_logger_provider(logger_provider)
 
     _started = True
+
+
+def get_meter():
+    if _meter is None:
+        raise RuntimeError("Telemetry has not been initialized. Please call init_telemetry first.")
+
+    return _meter

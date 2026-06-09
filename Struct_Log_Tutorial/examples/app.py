@@ -2,12 +2,11 @@ import time
 import uuid
 
 from fastapi import FastAPI, Response
-from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
-from prometheus_client import generate_latest
-
 from my_logger import configure_logger, get_logger
 from my_logger.logger import AppLogger
 from my_logger.telemetry import setup_tracing
+from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
+from prometheus_client import generate_latest
 
 setup_tracing()
 

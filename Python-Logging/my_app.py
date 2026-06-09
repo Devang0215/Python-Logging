@@ -1,5 +1,5 @@
-from logger import logging
 import my_lib
+from logger import logging
 
 logger = logging.getLogger(__name__)
 

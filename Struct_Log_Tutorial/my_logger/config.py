@@ -4,7 +4,12 @@ from logging.handlers import RotatingFileHandler
 
 import structlog
 
-from .processors import add_app_metadata, add_trace_context, mask_sensitive_data,rename_level
+from .processors import (
+    add_app_metadata,
+    add_trace_context,
+    mask_sensitive_data,
+    rename_level,
+)
 from .settings import JSON_LOGS, LOG_LEVEL
 
 
